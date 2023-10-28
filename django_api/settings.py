@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # app externos
+    'rest_framework',
+    # api do sistema local
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Custo validation middleware
+    'api.middleware.HeaderValidationMiddleware'
 ]
 
 ROOT_URLCONF = 'django_api.urls'
