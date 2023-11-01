@@ -3,15 +3,18 @@ from rest_framework.response import Response
 from rest_framework import status
 # importar requests
 from api.requests import LoginRequest
-
+# importar models
+from api.models import Login
 
 class Login(APIView):
     
     def get(self, request):
-        return Response(request.headers, status='200')
+        data = Login.objects.all()
+        return Response(data, status='200')
 
     def post(self, request):
-        serial = LoginRequest(data=request.data)
-        if serial.is_valid():
-            return Response('valido', status=200)
-        return Response('serial', status=404)
+        dadosSerial = LoginRequest(data=request.data)
+        if dadosSerial.is_valid():
+            dadosSerial.save()
+            return Response('Salvo', status=200)
+        return Response('Não foi possível salvar', status=404)
