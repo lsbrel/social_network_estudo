@@ -1,7 +1,9 @@
+# DJANGO
 from django.urls import path
-from api.controllers import Login
+# CONTROLLERS
+from api.controllers import UsuarioController
 
 
 urlpatterns = [
-    path("login", Login.as_view())
+    path("usuario", UsuarioController.as_view())
 ]

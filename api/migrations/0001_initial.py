@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False)),
                 ('nome', models.CharField(max_length=70)),
                 ('username', models.CharField(max_length=20)),
-                ('senha', models.CharField(max_length=50)),
+                ('senha', models.CharField(max_length=100)),
                 ('created_at', models.DateField(auto_now=True)),
                 ('updated_at', models.DateField(auto_now=True)),
                 ('deleted_at', models.DateField(auto_now=True)),
