@@ -1,5 +1,4 @@
 # PYTHON
-import json
 import hashlib
 # CONTROLLER
 from api.controllers.Controller import Controller
@@ -26,7 +25,7 @@ class UsuarioController(Controller):
         if dataSerial.is_valid():
 
             dataSerial.save()
-            return super().apiResponse(self, True, "Dados foram salvos com sucesso")
+            return super().apiResponse(True, "Dados foram salvos com sucesso")
             
         return super().apiResponse(False, "Não foi possível salvar os dados")
 

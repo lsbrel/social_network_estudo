@@ -1,20 +1,21 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-# importar requests
+# REQUESTS
 from api.requests import LoginRequest
-# importar models
+# CONTROLLERS
+from api.controllers.Controller import Controller
+# MODELS
 from api.models import Login
 
-class Login(APIView):
+class LoginController(Controller):
     
-    def get(self, request):
-        data = Login.objects.all()
-        return Response(data, status='200')
-
     def post(self, request):
-        dadosSerial = LoginRequest(data=request.data)
-        if dadosSerial.is_valid():  
-            dadosSerial.save()
-            return Response('Salvo', status=200)
-        return Response('Não foi possível salvar', status=404)
+        # Aqui valida o campo
+        validatedData = LoginRequest(data=request.data)
+        # Aqui valida os dados
+        
+        # dadosSerial = LoginRequest(data=request.data)
+
+        if validatedData.is_valid(raise_exception=True):  
+            validatedData.save()
+
+            return super().apiResponse(True, "Login realizado")
+        return super().apiResponse(False, 'Login não foi realizado')
