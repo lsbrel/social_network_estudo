@@ -8,14 +8,27 @@ from api.models import Login
 class LoginController(Controller):
     
     def post(self, request):
-        # Aqui valida o campo
-        validatedData = LoginRequest(data=request.data)
-        # Aqui valida os dados
+
+        # valida se o usuario não está logado 
+        if self.verificarLogin(request.headers['Authorization']):
+            
+            return super().apiResponse(False, "Usuario já esta logado")
         
-        # dadosSerial = LoginRequest(data=request.data)
+        # aqui validam se os campos
+        validatedData = LoginRequest(data=request.data)
 
+        # aqui validam se os dados que vem nos campos
         if validatedData.is_valid(raise_exception=True):  
-            validatedData.save()
+            token = validatedData.save() # caso sejam validados eles são salvos em banco
 
-            return super().apiResponse(True, "Login realizado")
+            return super().apiResponse(True, f"{token}")
+
         return super().apiResponse(False, 'Login não foi realizado')
+
+
+    def verificarLogin(self, header):
+        try:
+            data = Login.objects.get(token=header)
+            return True
+        except:
+            return False
