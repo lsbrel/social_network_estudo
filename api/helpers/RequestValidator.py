@@ -1,6 +1,7 @@
 # REST_FRAMEWORK
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework import serializers
 
 class RequestValidator:
     # Classe de email que retorna se o email é valido
@@ -10,7 +11,7 @@ class RequestValidator:
         if '@' in email and '.com' in email:
 
             return True    
-        return RequestValidator.validatorErrorResponse("email", "Tipo de email não é valido")
+        raise serializers.ValidationError("exception")
 
     @staticmethod
     def size(input, size):
@@ -18,7 +19,7 @@ class RequestValidator:
         if len(input) == size:
 
             return True
-        return RequestValidator.validatorErrorResponse("size", f"Campo precisa ter {size} caracteres")
+        raise serializers.ValidationError("exception")
 
     @staticmethod
     def min(input, size):
@@ -26,7 +27,7 @@ class RequestValidator:
         if len(input) >= size:
 
             return True
-        return RequestValidator.validatorErrorResponse("min", f'Campo precisa ter no minimo {size} de catacteres')
+        raise serializers.ValidationError("exception")
 
 
     @staticmethod
@@ -35,8 +36,12 @@ class RequestValidator:
         if len(input) <= size:
 
             return True
-        return RequestValidator.validatorErrorResponse("max", f'Campo precisa ter no maximo {size} de caracteres')
+        raise serializers.ValidationError("exception")
 
     @staticmethod
-    def validatorErrorResponse(campo, mensagem):
-        return Response(f'{campo}: {mensagem}', status=status.HTTP_201_CREATED)
+    def validatorErrorResponse(info, campo, mensagem):
+        response = {}
+        response['status'] = info
+        response['campo'] = campo
+        response['mensagem'] = mensagem
+        return Response(response, status=status.HTTP_201_CREATED)
