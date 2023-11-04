@@ -1,1 +1,0 @@
-from .middleware.teste import HeaderValidationMiddleware

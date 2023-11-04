@@ -8,12 +8,12 @@ from api.requests.PostRequest import VisualizarPostRequest
 # Models
 from api.models import UsuarioPost
 from api.models import Post
+from api.models import Login
 
 
 class PostController(Controller):
 
     def post(self, request):
-
         postSerial = CriarPostRequest(data=request.data)
 
         if postSerial.is_valid():

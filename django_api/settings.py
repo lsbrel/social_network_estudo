@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Custo validation middleware
-    # 'api.middleware.HeaderValidationMiddleware'
+    'api.middleware.Authorization.HeaderValidationMiddleware'
 ]
 
 ROOT_URLCONF = 'django_api.urls'

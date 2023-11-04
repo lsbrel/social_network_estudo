@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from api.models.Login import Login
 
 
 class HeaderValidationMiddleware:
@@ -17,4 +18,14 @@ class HeaderValidationMiddleware:
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         if(request.META.get('HTTP_AUTHORIZATION') == None):
-            return HttpResponse({'error': 'No Authorization header provided'}, status=201)
+
+            return HttpResponse('Nenhum token foi informado', status=201)
+
+        try:
+            login = Login.objects.get(token=request.META.get('HTTP_AUTHORIZATION'))
+        except:
+            return HttpResponse('Token inválido', status=201)
+
+
+         
+        
