@@ -10,9 +10,12 @@ class LoginController(Controller):
     def post(self, request):
 
         # valida se o usuario não está logado 
-        if self.verificarLogin(request.headers['Authorization']):
+        try:
+            if self.verificarLogin(request.headers['Authorization']):
             
-            return super().apiResponse(False, "Usuario já esta logado")
+                return super().apiResponse(False, "Usuario já esta logado")
+        except:
+            return super().apiResponse(False, "Usuario não existe")
         
         # aqui validam se os campos
         validatedData = LoginRequest(data=request.data)
