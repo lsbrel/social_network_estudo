@@ -1,5 +1,8 @@
+<!-- Paginad e layout utilizar para fazer menu -->
+
 <script>
     import "../lib/app.css";
-  </script>
-  
-  <slot />
+    import ValidationInput from "../lib/helpers/validationInput"
+</script>
+
+<slot />

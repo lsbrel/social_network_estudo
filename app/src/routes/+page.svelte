@@ -3,9 +3,10 @@
 </script>
 
 <Login />
+
 <style>
     :root{
-        background-color: #E9D5FF;
+        background-color: ghostwhite;
         padding: 0;
         margin: 0;
     }
